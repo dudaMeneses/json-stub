@@ -6,6 +6,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 public class UserNotAuthorizedException extends ResponseStatusException {
     public UserNotAuthorizedException(Authorization authorization) {
-        super(HttpStatus.BAD_REQUEST, String.format("User not authorized to %s", authorization));
+        super(HttpStatus.FORBIDDEN, String.format("User not authorized to %s", authorization));
     }
 }
