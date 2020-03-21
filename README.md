@@ -22,6 +22,9 @@ Also I mapped the following points to improvement
 - [ ] Docker Compose to have Jenkins and SonarQube running locally
 - [ ] Point to real database instead mocked data
 
+## Important considerations
+Once I am using MongoDB on this test the data redundancy is expected. So it doesn't have the entities relationship for a reason.
+
 ## Tech stack
 - Spring Boot (Webflux)
 - MongoDB

@@ -4,6 +4,8 @@ import lombok.Data;
 import nl.rabobank.powerofattorney.stub.model.data.Authorization;
 import nl.rabobank.powerofattorney.stub.model.data.Direction;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotBlank;
@@ -36,4 +38,6 @@ public class PowerOfAttorney {
 
     @NotEmpty
     private Set<Authorization> authorizations;
+
+    private Set<UserCard> cards;
 }

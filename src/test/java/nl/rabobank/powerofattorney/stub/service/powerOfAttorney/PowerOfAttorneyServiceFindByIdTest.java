@@ -14,6 +14,7 @@ import reactor.test.StepVerifier;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doReturn;
 
 @ExtendWith(MockitoExtension.class)
@@ -27,9 +28,9 @@ class PowerOfAttorneyServiceFindByIdTest {
 
     @Test
     public void whenHappyPath_shouldReturnPowerOfAttorneyDetails(){
-        doReturn(Mono.just(PowerOfAttorneyHelper.create("0L"))).when(powerOfAttorneyRepository).findById(anyLong());
+        doReturn(Mono.just(PowerOfAttorneyHelper.create("0L"))).when(powerOfAttorneyRepository).findByExternalId(anyString());
 
-        StepVerifier.create(powerOfAttorneyService.findById(0L))
+        StepVerifier.create(powerOfAttorneyService.findByExternalId("0L"))
                 .assertNext(powerOfAttorney -> assertEquals(PowerOfAttorneyHelper.create("0L"), powerOfAttorney))
                 .expectComplete()
                 .verify();
@@ -37,9 +38,9 @@ class PowerOfAttorneyServiceFindByIdTest {
 
     @Test
     public void whenNoPowerOfAttorneys_shouldThrowPowerOfAttorneyNotFound(){
-        doReturn(Mono.empty()).when(powerOfAttorneyRepository).findById(anyLong());
+        doReturn(Mono.empty()).when(powerOfAttorneyRepository).findByExternalId(anyString());
 
-        StepVerifier.create(powerOfAttorneyService.findById(0L))
+        StepVerifier.create(powerOfAttorneyService.findByExternalId("0L"))
                 .expectError(PowerOfAttorneyNotFound.class)
                 .verify();
     }

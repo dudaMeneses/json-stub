@@ -8,7 +8,6 @@ import nl.rabobank.powerofattorney.stub.service.exception.PowerOfAttorneyNotFoun
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
-import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Service
@@ -24,8 +23,8 @@ public class PowerOfAttorneyService {
                 .collectList();
     }
 
-    public Mono<PowerOfAttorney> findById(final Long id) {
-        return repository.findById(id)
+    public Mono<PowerOfAttorney> findByExternalId(final String id) {
+        return repository.findByExternalId(id)
                 .switchIfEmpty(Mono.error(new PowerOfAttorneyNotFound()));
     }
 }

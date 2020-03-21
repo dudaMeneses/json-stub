@@ -17,4 +17,6 @@ public interface PowerOfAttorneyProjection {
     String getAccount();
     Direction getDirection();
     Set<Authorization> getAuthorizations();
+
+    Set<UserCardProjection> getCards();
 }

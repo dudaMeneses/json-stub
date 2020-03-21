@@ -52,8 +52,8 @@ public class PowerOfAttorneyController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Grants found"),
     })
-    public Mono<PowerOfAttorneyProjection> findById(@PathVariable Long id){
-        return service.findById(id)
+    public Mono<PowerOfAttorneyProjection> findById(@PathVariable String id){
+        return service.findByExternalId(id)
                 .map(powerOfAttorney -> projectionFactory.createProjection(PowerOfAttorneyProjection.class, powerOfAttorney));
     }
 
