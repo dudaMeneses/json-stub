@@ -32,6 +32,6 @@ public class CardService {
     }
 
     private Predicate<Card> validateCardType(String cardType) {
-        return card -> card.cardType().getCardType().equals(cardType.toLowerCase());
+        return card -> card.cardType().getCardType().equalsIgnoreCase(cardType);
     }
 }

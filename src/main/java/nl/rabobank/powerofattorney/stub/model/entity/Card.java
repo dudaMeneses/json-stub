@@ -15,7 +15,11 @@ import javax.validation.constraints.Positive;
 public abstract class Card {
 
     @Id
-    protected Long id;
+    private Long id;
+
+    @NotNull
+    @Positive
+    private Long externalId;
 
     @NotNull
     protected Status status;

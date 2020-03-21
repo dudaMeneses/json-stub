@@ -39,13 +39,13 @@ After this analysis, I decided to follow the steps below:
 - [x] Create a separation of concerns considering the context bounds of application functionality
 - [x] Cover code with unit tests to prepare ground for refactoring
 
-Once it was done, I applied the logic on the exercise as 2 different stories:
+Once it was done, I applied the logic on the exercise as some different stories:
 - [ ] Retrieve only authorized data for user
 - [x] Retrieve only active products and accounts
 - [ ] Expose over HTTPS
 
 Also I mapped the following points to improvement
-- [ ] Swagger by annotations
+- [x] Swagger by annotations
 - [ ] Expose contracts on build to help teams integrating with application to implement it
 - [ ] Jenkinsfile and Dockerfile to CI/CD
 - [ ] Point to real database instead mocked data

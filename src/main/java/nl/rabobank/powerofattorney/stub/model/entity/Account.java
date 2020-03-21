@@ -9,6 +9,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -21,6 +22,10 @@ public class Account {
 
     @Id
     private Long id;
+
+    @NotNull
+    @Positive
+    private Long externalId;
 
     @NotNull
     private String owner;

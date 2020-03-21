@@ -15,8 +15,8 @@ public class AccountService {
     @NonNull
     private AccountRepository repository;
 
-    public Mono<Account> findById(final Long id) {
-        return repository.findById(id)
+    public Mono<Account> findByExternalId(final Long id) {
+        return repository.findByExternalId(id)
                 .switchIfEmpty(Mono.error(new AccountNotFoundException()));
     }
 }

@@ -1,6 +1,5 @@
 package nl.rabobank.powerofattorney.stub.controller.account;
 
-import nl.rabobank.powerofattorney.stub.repository.AccountRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +16,9 @@ public class AccountControllerFindByIdTest {
     @Autowired
     private WebTestClient client;
 
-    @Autowired
-    private AccountRepository accountRepository;
-
     @Test
     public void whenHappyPath_shouldReturnAccount(){
-        client.get().uri("/accounts/123123123")
+        client.get().uri("/accounts/{id}", 123123123L)
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody()
@@ -34,7 +30,7 @@ public class AccountControllerFindByIdTest {
 
     @Test
     public void whenNotFound_shouldReturnNotFound(){
-        client.get().uri("/accounts/999999999")
+        client.get().uri("/accounts/{id}", 999999999)
                 .exchange()
                 .expectStatus().isNotFound();
     }
