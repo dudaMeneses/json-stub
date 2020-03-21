@@ -1,3 +1,6 @@
+[![CircleCI](https://circleci.com/gh/dudaMeneses/json-stub.svg?style=shield)](https://circleci.com/gh/dudaMeneses/json-stub/master)
+[![CodeFactor](https://www.codefactor.io/repository/github/dudameneses/json-stub/badge)](https://www.codefactor.io/repository/github/dudameneses/json-stub)
+
 # Power of Attorney
 This is a version of assignment done for Rabobank.
 
