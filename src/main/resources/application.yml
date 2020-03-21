@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    active: local
+  data:
+    mongodb:
+      database: rabobank
+      uri: mongodb://localhost:27017/rabobank?maxpoolsize=5
+      minConnectionsPerHost: 1

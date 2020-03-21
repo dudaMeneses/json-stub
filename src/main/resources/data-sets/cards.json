@@ -1,0 +1,5 @@
+{"externalId":"1111","status":"ACTIVE","cardNumber":"1234","sequenceNumber":"5","cardHolder":"Frodo Basggins","atmLimit":{"limit":"3000","periodUnit":"PER_WEEK"},"posLimit":{"limit":"50","periodUnit":"PER_MONTH"},"contactless":true,"cardType":"debit"}
+{"externalId":"2222","status":"ACTIVE","cardNumber":"6527","sequenceNumber":"1","cardHolder":"Aragorn","atmLimit":{"limit":"100","periodUnit":"PER_DAY"},"posLimit":{"limit":"10000","periodUnit":"PER_MONTH"},"contactless":true,"cardType":"debit"}
+{"externalId":"3333","status":"ACTIVE","cardNumber":"5075","sequenceNumber":"1","cardHolder":"Boromir","monthlyLimit":"3000","cardType":"credit"}
+{"externalId":"4444","status":"ACTIVE","cardNumber":"1111","cardHolder":"Super duper employee","sequenceNumber":"32","atmLimit":{"limit":"100","periodUnit":"PER_DAY"},"posLimit":{"limit":"10000","periodUnit":"PER_MONTH"},"contactless":false,"cardType":"debit"}
+{"externalId":"5555","status":"BLOCKED","cardNumber":"5678","sequenceNumber":"5","cardHolder":"Darth Vader","atmLimit":{"limit":"500","periodUnit":"PER_DAY"},"posLimit":{"limit":"50","periodUnit":"PER_MONTH"},"contactless":true,"cardType":"debit"}
