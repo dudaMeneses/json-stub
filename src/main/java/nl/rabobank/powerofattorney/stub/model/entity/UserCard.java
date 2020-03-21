@@ -15,4 +15,12 @@ public class UserCard {
 
     @NotNull
     private CardType type;
+
+    public static UserCard of(Card card) {
+        var userCard = new UserCard();
+        userCard.setExternalId(card.getExternalId());
+        userCard.setType(card.cardType());
+
+        return userCard;
+    }
 }
