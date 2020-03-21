@@ -4,7 +4,6 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import nl.rabobank.powerofattorney.stub.model.data.Authorization;
 import nl.rabobank.powerofattorney.stub.model.entity.Account;
-import nl.rabobank.powerofattorney.stub.model.entity.PowerOfAttorney;
 import nl.rabobank.powerofattorney.stub.repository.AccountRepository;
 import nl.rabobank.powerofattorney.stub.service.exception.AccountClosedException;
 import nl.rabobank.powerofattorney.stub.service.exception.AccountNotFoundException;

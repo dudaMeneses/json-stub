@@ -6,3 +6,8 @@ spring:
       database: rabobank
       uri: mongodb://localhost:27017/rabobank?maxpoolsize=5
       minConnectionsPerHost: 1
+
+logging:
+  level:
+    org.springframework.web: ERROR
+    nl.rabobank.powerofattorney.stub: INFO

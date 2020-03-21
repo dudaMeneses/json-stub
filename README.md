@@ -17,19 +17,26 @@ Once it was done, I applied the logic on the exercise as some different stories:
 Also I mapped the following points to improvement
 - [x] Swagger by annotations
 - [x] JaCoCo report
-- [ ] Expose contracts on build to help teams integrating with application to implement it
-- [ ] Jenkinsfile and Dockerfile to CI/CD
-- [ ] Docker Compose to have Jenkins and SonarQube running locally
+- [x] Add Circle-CI pipeline to validate application
+- [x] Add CodeFactor to check code quality
 - [ ] Point to real database instead mocked data
 
 ## Important considerations
-Once I am using MongoDB on this test the data redundancy is expected. So it doesn't have the entities relationship for a reason.
+
+- Once I am using MongoDB on this test, data redundancy is expected inside entities
+- I decided to change data to mock to better manipulate it. Also, I fixed the account ids mappings
+
+## Pre-Requirements
+
+- [jdk11](https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html)
+- [maven](https://maven.apache.org/download.cgi)
+- [docker-compose](https://docs.docker.com/compose/install/)
 
 ## Tech stack
+
 - Spring Boot (Webflux)
 - MongoDB
 - Docker
-- Jenkins
 
 ## How to's
 ### Run
