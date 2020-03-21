@@ -6,20 +6,13 @@ import lombok.RequiredArgsConstructor;
 import org.reflections.Reflections;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.ResponseEntity;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.schema.AlternateTypeRules;
-import springfox.documentation.schema.WildcardType;
 import springfox.documentation.service.Tag;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2WebFlux;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Set;
 
 @Configuration
@@ -39,25 +32,6 @@ public class SwaggerConfig {
                 .useDefaultResponseMessages(false)
                 .apiInfo(new ApiInfoBuilder().title("Power of Attorney API").build())
                 .ignoredParameterTypes(getModelClasses())
-                .alternateTypeRules(new RecursiveAlternateTypeRule(resolver,
-                        Arrays.asList(AlternateTypeRules.newRule(
-                                resolver.resolve(Mono.class, WildcardType.class),
-                                resolver.resolve(WildcardType.class)),
-                        AlternateTypeRules.newRule(
-                                resolver.resolve(ResponseEntity.class, WildcardType.class),
-                                resolver.resolve(WildcardType.class))
-                        ))
-                )
-                .alternateTypeRules(new RecursiveAlternateTypeRule(resolver,
-                        Arrays.asList(AlternateTypeRules.newRule(
-                                resolver.resolve(Flux.class, WildcardType.class),
-                                resolver.resolve(List.class, WildcardType.class)
-                        ),
-                        AlternateTypeRules.newRule(
-                                resolver.resolve(ResponseEntity.class, WildcardType.class),
-                                resolver.resolve(WildcardType.class))
-                        ))
-                )
                 .tags(
                         new Tag("accounts", "Services related with accounts"),
                         new Tag("cards", "Services related with cards"),

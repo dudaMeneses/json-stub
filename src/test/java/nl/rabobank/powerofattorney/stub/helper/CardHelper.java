@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 public class CardHelper {
     public static Card credit(Status status) {
         var creditCard = new CreditCard();
-        creditCard.setId(10L);
+        creditCard.setExternalId("10L");
         creditCard.setMonthlyLimit(BigDecimal.valueOf(3000.00));
         creditCard.setCardHolder("Test Owner");
         creditCard.setCardNumber(101010L);
@@ -24,7 +24,7 @@ public class CardHelper {
 
     public static Card debit(Status status) {
         var debitCard = new DebitCard();
-        debitCard.setId(11L);
+        debitCard.setExternalId("11L");
         debitCard.setCardHolder("Test Owner");
         debitCard.setCardNumber(111111L);
         debitCard.setStatus(status);

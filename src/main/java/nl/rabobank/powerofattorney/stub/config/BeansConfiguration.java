@@ -6,9 +6,9 @@ import org.springframework.data.projection.SpelAwareProxyProjectionFactory;
 
 @Configuration
 public class BeansConfiguration {
-
     @Bean
     public SpelAwareProxyProjectionFactory projectionFactory(){
         return new SpelAwareProxyProjectionFactory();
     }
+
 }

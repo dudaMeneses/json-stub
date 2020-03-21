@@ -7,5 +7,5 @@ import reactor.core.publisher.Mono;
 
 @Repository
 public interface AccountRepository extends ReactiveMongoRepository<Account, Long> {
-    Mono<Account> findByExternalId(final Long externalId);
+    Mono<Account> findByExternalId(final String externalId);
 }

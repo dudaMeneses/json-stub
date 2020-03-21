@@ -35,9 +35,10 @@ public class AccountController {
     )
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Account found"),
-            @ApiResponse(code = 404, message = "Account not found")
+            @ApiResponse(code = 404, message = "Account not found"),
+            @ApiResponse(code = 400, message = "Account is closed")
     })
-    public Mono<AccountProjection> findById(@PathVariable Long id){
+    public Mono<AccountProjection> findById(@PathVariable String id){
         return service.findByExternalId(id)
                 .map(account -> projectionFactory.createProjection(AccountProjection.class, account));
     }

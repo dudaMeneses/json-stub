@@ -9,17 +9,17 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import java.math.BigInteger;
 
 @Data
 @Document(collection = "cards")
 public abstract class Card {
 
     @Id
-    private Long id;
+    private BigInteger id;
 
-    @NotNull
-    @Positive
-    private Long externalId;
+    @NotBlank
+    private String externalId;
 
     @NotNull
     protected Status status;

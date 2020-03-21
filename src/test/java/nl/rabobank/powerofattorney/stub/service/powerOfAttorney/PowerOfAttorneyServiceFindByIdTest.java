@@ -27,10 +27,10 @@ class PowerOfAttorneyServiceFindByIdTest {
 
     @Test
     public void whenHappyPath_shouldReturnPowerOfAttorneyDetails(){
-        doReturn(Mono.just(PowerOfAttorneyHelper.create(0L))).when(powerOfAttorneyRepository).findById(anyLong());
+        doReturn(Mono.just(PowerOfAttorneyHelper.create("0L"))).when(powerOfAttorneyRepository).findById(anyLong());
 
         StepVerifier.create(powerOfAttorneyService.findById(0L))
-                .assertNext(powerOfAttorney -> assertEquals(PowerOfAttorneyHelper.create(0L), powerOfAttorney))
+                .assertNext(powerOfAttorney -> assertEquals(PowerOfAttorneyHelper.create("0L"), powerOfAttorney))
                 .expectComplete()
                 .verify();
     }

@@ -9,9 +9,8 @@ import java.time.LocalDate;
 
 @ApiModel("Account")
 public interface AccountProjection {
-
-    @Value("${target.externalId}")
-    Long getId();
+    @Value("#{target.externalId}")
+    String getId();
 
     String getOwner();
     BigDecimal getBalance();

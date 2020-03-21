@@ -12,10 +12,17 @@ public class AccountHelper {
 
     public static Account create() {
         var account = new Account();
-        account.setId(1L);
+        account.setExternalId("1L");
         account.setBalance(BigDecimal.valueOf(1000.00));
         account.setCreated(LocalDate.of(2020, Month.MARCH, 20));
         account.setOwner("Test Owner");
+
+        return account;
+    }
+
+    public static Account ended() {
+        var account = create();
+        account.setEnded(LocalDate.now());
 
         return account;
     }

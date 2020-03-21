@@ -9,7 +9,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
+
+import java.util.List;
 
 import static org.mockito.Mockito.doReturn;
 
@@ -24,10 +27,10 @@ class PowerOfAttorneyServiceFindAllTest {
 
     @Test
     public void whenHappyPath_shouldReturnIds(){
-        doReturn(Flux.just(PowerOfAttorneyHelper.create(0L), PowerOfAttorneyHelper.create(1L))).when(powerOfAttorneyRepository).findAll();
+        doReturn(Flux.just(PowerOfAttorneyHelper.create("0L"), PowerOfAttorneyHelper.create("1L"))).when(powerOfAttorneyRepository).findAll();
 
         StepVerifier.create(powerOfAttorneyService.findAllIds())
-                .expectNext(0L, 1L)
+                .expectNext(List.of("0L", "1L"))
                 .expectComplete()
                 .verify();
     }
@@ -37,6 +40,7 @@ class PowerOfAttorneyServiceFindAllTest {
         doReturn(Flux.empty()).when(powerOfAttorneyRepository).findAll();
 
         StepVerifier.create(powerOfAttorneyService.findAllIds())
+                .expectNext(List.of())
                 .expectComplete()
                 .verify();
     }

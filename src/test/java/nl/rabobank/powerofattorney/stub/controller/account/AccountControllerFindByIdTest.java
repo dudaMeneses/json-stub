@@ -18,21 +18,28 @@ public class AccountControllerFindByIdTest {
 
     @Test
     public void whenHappyPath_shouldReturnAccount(){
-        client.get().uri("/accounts/{id}", 123123123L)
+        client.get().uri("/accounts/{id}", "123123123")
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody()
                     .jsonPath("$.id").isEqualTo("123123123")
-                    .jsonPath("$.balance").isEqualTo("-125.00")
+                    .jsonPath("$.balance").isEqualTo("-125")
                     .jsonPath("$.created").isEqualTo("12-10-2007")
                     .jsonPath("$.owner").isEqualTo("uper duper employee");
     }
 
     @Test
     public void whenNotFound_shouldReturnNotFound(){
-        client.get().uri("/accounts/{id}", 999999999)
+        client.get().uri("/accounts/{id}", "999999999")
                 .exchange()
                 .expectStatus().isNotFound();
+    }
+
+    @Test
+    public void whenAccountIsClosed_shouldReturnBadRequest(){
+        client.get().uri("/accounts/{id}", "987654321")
+                .exchange()
+                .expectStatus().isBadRequest();
     }
 
 }

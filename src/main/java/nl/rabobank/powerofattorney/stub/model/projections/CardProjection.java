@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Value;
 
 @Api("Card")
 public interface CardProjection {
-    @Value("${target.externalId}")
-    Long getId();
+    @Value("#{target.externalId}")
+    String getId();
 
     Status getStatus();
 

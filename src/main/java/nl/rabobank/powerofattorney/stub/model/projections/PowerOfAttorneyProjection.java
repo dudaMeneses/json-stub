@@ -9,8 +9,8 @@ import java.util.Set;
 
 @Api("PowerOfAttorney")
 public interface PowerOfAttorneyProjection {
-    @Value("${target.externalId}")
-    Long getId();
+    @Value("#{target.externalId}")
+    String getId();
 
     String getGrantor();
     String getGrantee();
