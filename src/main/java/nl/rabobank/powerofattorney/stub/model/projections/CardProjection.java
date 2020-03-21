@@ -14,5 +14,4 @@ public interface CardProjection {
     Integer getCardNumber();
     Integer getSequenceNumber();
     String getCardHolder();
-    boolean isContactless();
 }

@@ -3,7 +3,9 @@ package nl.rabobank.powerofattorney.stub.service.card;
 import nl.rabobank.powerofattorney.stub.helper.CardHelper;
 import nl.rabobank.powerofattorney.stub.model.data.CardType;
 import nl.rabobank.powerofattorney.stub.model.data.Status;
-import nl.rabobank.powerofattorney.stub.repository.CardRepository;
+import nl.rabobank.powerofattorney.stub.model.entity.DebitCard;
+import nl.rabobank.powerofattorney.stub.repository.CreditCardRepository;
+import nl.rabobank.powerofattorney.stub.repository.DebitCardRepository;
 import nl.rabobank.powerofattorney.stub.service.CardService;
 import nl.rabobank.powerofattorney.stub.service.exception.CardIsBlockedException;
 import nl.rabobank.powerofattorney.stub.service.exception.CardNotFoundException;
@@ -16,7 +18,7 @@ import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doReturn;
 
 @ExtendWith(MockitoExtension.class)
@@ -26,41 +28,54 @@ public class CardServiceFindTest {
     private CardService cardService;
 
     @Mock
-    private CardRepository cardRepository;
+    private CreditCardRepository creditCardRepository;
+
+    @Mock
+    private DebitCardRepository debitCardRepository;
 
     @Test
-    public void whenCardTypeIsDebitButCardIsCredit_shouldThrowCardNotFoundException(){
-        doReturn(Mono.just(CardHelper.credit(Status.ACTIVE))).when(cardRepository).findById(anyLong());
+    public void whenDebitCardNotFound_shouldThrowCardNotFoundException(){
+        doReturn(Mono.empty()).when(debitCardRepository).findByExternalId(anyString());
 
-        StepVerifier.create(cardService.find(CardType.DEBIT_CARD.getCardType(), 1L))
+        StepVerifier.create(cardService.find(CardType.DEBIT_CARD.getCardType(), "1L"))
                 .expectError(CardNotFoundException.class)
                 .verify();
     }
 
     @Test
-    public void whenCardTypeIsCreditButCardIsDebit_shouldThrowCardNotFoundException(){
-        doReturn(Mono.just(CardHelper.debit(Status.ACTIVE))).when(cardRepository).findById(anyLong());
+    public void whenCreditCardNotFound_shouldThrowCardNotFoundException(){
+        doReturn(Mono.empty()).when(creditCardRepository).findByExternalId(anyString());
 
-        StepVerifier.create(cardService.find(CardType.CREDIT_CARD.getCardType(), 1L))
+        StepVerifier.create(cardService.find(CardType.CREDIT_CARD.getCardType(), "1L"))
                 .expectError(CardNotFoundException.class)
                 .verify();
     }
 
     @Test
     public void whenCardIsBlocked_shouldThrowCardIsBlockedException(){
-        doReturn(Mono.just(CardHelper.credit(Status.BLOCKED))).when(cardRepository).findById(anyLong());
+        doReturn(Mono.just(CardHelper.credit(Status.BLOCKED))).when(creditCardRepository).findByExternalId(anyString());
 
-        StepVerifier.create(cardService.find(CardType.CREDIT_CARD.getCardType(), 1L))
+        StepVerifier.create(cardService.find(CardType.CREDIT_CARD.getCardType(), "1L"))
                 .expectError(CardIsBlockedException.class)
                 .verify();
     }
 
     @Test
-    public void whenHappyPath_shouldRetrieveTheCard(){
-        doReturn(Mono.just(CardHelper.debit(Status.ACTIVE))).when(cardRepository).findById(anyLong());
+    public void whenDebitHappyPath_shouldRetrieveTheCard(){
+        doReturn(Mono.just(CardHelper.debit(Status.ACTIVE))).when(debitCardRepository).findByExternalId(anyString());
 
-        StepVerifier.create(cardService.find(CardType.DEBIT_CARD.getCardType(), 1L))
+        StepVerifier.create(cardService.find(CardType.DEBIT_CARD.getCardType(), "1L"))
                 .assertNext(card -> assertEquals(CardHelper.debit(Status.ACTIVE), card))
+                .expectComplete()
+                .verify();
+    }
+
+    @Test
+    public void whenCreditHappyPath_shouldRetrieveTheCard(){
+        doReturn(Mono.just(CardHelper.credit(Status.ACTIVE))).when(creditCardRepository).findByExternalId(anyString());
+
+        StepVerifier.create(cardService.find(CardType.CREDIT_CARD.getCardType(), "1L"))
+                .assertNext(card -> assertEquals(CardHelper.credit(Status.ACTIVE), card))
                 .expectComplete()
                 .verify();
     }

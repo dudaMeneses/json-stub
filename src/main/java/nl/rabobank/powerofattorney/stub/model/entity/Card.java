@@ -35,7 +35,5 @@ public abstract class Card {
     @NotBlank
     protected String cardHolder;
 
-    private boolean contactless;
-
     public abstract CardType cardType();
 }

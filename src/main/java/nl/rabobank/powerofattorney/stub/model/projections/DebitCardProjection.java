@@ -6,4 +6,5 @@ import io.swagger.annotations.Api;
 public interface DebitCardProjection extends CardProjection {
     LimitProjection getAtmLimit();
     LimitProjection getPosLimit();
+    boolean isContactless();
 }
