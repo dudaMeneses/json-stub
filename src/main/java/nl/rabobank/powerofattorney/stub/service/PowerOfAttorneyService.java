@@ -3,6 +3,7 @@ package nl.rabobank.powerofattorney.stub.service;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import nl.rabobank.powerofattorney.stub.model.entity.PowerOfAttorney;
+import nl.rabobank.powerofattorney.stub.model.entity.UserCard;
 import nl.rabobank.powerofattorney.stub.repository.PowerOfAttorneyRepository;
 import nl.rabobank.powerofattorney.stub.service.exception.PowerOfAttorneyNotFound;
 import org.springframework.stereotype.Service;
@@ -26,5 +27,13 @@ public class PowerOfAttorneyService {
     public Mono<PowerOfAttorney> findByExternalId(final String id) {
         return repository.findByExternalId(id)
                 .switchIfEmpty(Mono.error(new PowerOfAttorneyNotFound()));
+    }
+
+    public Mono<PowerOfAttorney> findAccountOwner(String account) {
+        return repository.findByAccount(account);
+    }
+
+    public Mono<PowerOfAttorney> findCardOwner(UserCard userCard) {
+        return repository.findByCards(userCard);
     }
 }

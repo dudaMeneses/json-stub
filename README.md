@@ -10,7 +10,7 @@ After this analysis, I decided to follow the steps below:
 - [x] Cover code with unit tests to prepare ground for refactoring
 
 Once it was done, I applied the logic on the exercise as some different stories:
-- [ ] Retrieve only authorized data for user
+- [x] Retrieve only authorized data for user
 - [x] Retrieve only active products and accounts
 - [ ] Expose over HTTPS
 
