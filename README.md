@@ -33,13 +33,11 @@ Also I mapped the following points to improvement
 
 - [jdk11](https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html)
 - [maven](https://maven.apache.org/download.cgi)
-- [docker-compose](https://docs.docker.com/compose/install/)
 
 ## Tech stack
 
 - Spring Boot (Webflux)
 - MongoDB
-- Docker
 
 ## How to's
 ### Run
