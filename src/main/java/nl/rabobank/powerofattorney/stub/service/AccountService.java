@@ -4,6 +4,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import nl.rabobank.powerofattorney.stub.model.data.Authorization;
 import nl.rabobank.powerofattorney.stub.model.entity.Account;
+import nl.rabobank.powerofattorney.stub.model.entity.PowerOfAttorney;
 import nl.rabobank.powerofattorney.stub.repository.AccountRepository;
 import nl.rabobank.powerofattorney.stub.service.exception.AccountClosedException;
 import nl.rabobank.powerofattorney.stub.service.exception.AccountNotFoundException;
@@ -28,19 +29,25 @@ public class AccountService implements GrantVerification<Account> {
         return repository.findByExternalId(externalId)
                 .switchIfEmpty(Mono.error(new AccountNotFoundException()))
                 .flatMap(this::validateOwnerGrant)
-                .filter(validateAccountClosed())
-                .switchIfEmpty(Mono.error(new AccountClosedException()));
+                .flatMap(this::validateAccountClosed);
     }
 
     public Mono<Account> validateOwnerGrant(Account account) {
         return powerOfAttorneyService.findAccountOwner(account.getExternalId())
                 .switchIfEmpty(Mono.error(PowerOfAttorneyNotFound::new))
-                .filter(powerOfAttorney -> powerOfAttorney.getAuthorizations().contains(Authorization.VIEW))
-                .switchIfEmpty(Mono.error(new UserNotAuthorizedException(Authorization.VIEW)))
+                .flatMap(this::validateGrant)
                 .then(Mono.just(account));
     }
 
-    private Predicate<Account> validateAccountClosed() {
-        return account -> account.getEnded() == null;
+    private Mono<PowerOfAttorney> validateGrant(PowerOfAttorney powerOfAttorney) {
+        return Mono.just(powerOfAttorney)
+                .filter(p -> p.getAuthorizations().contains(Authorization.VIEW))
+                .switchIfEmpty(Mono.error(new UserNotAuthorizedException(Authorization.VIEW)));
+    }
+
+    private Mono<Account> validateAccountClosed(Account account) {
+        return Mono.just(account)
+                .filter(a -> a.getEnded() == null)
+                .switchIfEmpty(Mono.error(new AccountClosedException()));
     }
 }
