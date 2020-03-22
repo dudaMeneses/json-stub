@@ -36,16 +36,14 @@ public class CardService implements GrantVerification<Card> {
         return findCard(cardType, externalId)
                     .switchIfEmpty(Mono.error(new CardNotFoundException()))
                     .flatMap(this::validateOwnerGrant)
-                    .filter(validateCardStatus())
-                    .switchIfEmpty(Mono.error(new CardIsBlockedException()));
+                    .flatMap(this::validateCardStatus);
     }
 
     @Override
     public Mono<Card> validateOwnerGrant(Card card) {
         return powerOfAttorneyService.findCardOwner(UserCard.of(card))
                 .switchIfEmpty(Mono.error(PowerOfAttorneyNotFound::new))
-                .filter(cardTypeAuthorizationPredicate(card))
-                .switchIfEmpty(Mono.error(new UserNotAuthorizedException(Authorization.find(card.cardType()))))
+                .flatMap(powerOfAttorney -> cardTypeAuthorizationPredicate(powerOfAttorney, card))
                 .then(Mono.just(card));
     }
 
@@ -57,12 +55,16 @@ public class CardService implements GrantVerification<Card> {
         }
     }
 
-    private Predicate<PowerOfAttorney> cardTypeAuthorizationPredicate(Card card) {
-        return powerOfAttorney -> powerOfAttorney.getAuthorizations().contains(Authorization.find(card.cardType()));
+    private Mono<Card> validateCardStatus(Card card) {
+        return Mono.just(card)
+                .filter(c -> c.getStatus().equals(Status.ACTIVE))
+                .switchIfEmpty(Mono.error(new CardIsBlockedException()));
     }
 
-    private Predicate<Card> validateCardStatus() {
-        return card -> card.getStatus().equals(Status.ACTIVE);
+    private Mono<PowerOfAttorney> cardTypeAuthorizationPredicate(PowerOfAttorney powerOfAttorney, Card card) {
+        return Mono.just(powerOfAttorney)
+                .filter(p -> p.getAuthorizations().contains(Authorization.find(card.cardType())))
+                .switchIfEmpty(Mono.error(new UserNotAuthorizedException(Authorization.find(card.cardType()))));
     }
 
 }
